@@ -1,0 +1,35 @@
+{
+  "@context": [
+    "https://linkedsoftwaredependencies.org/bundles/npm/@solid/community-server/^7.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/group-webids-component/^1.0.0/components/context.jsonld"
+  ],
+  "@graph": [
+    {
+      "comment": "Use our new class to determine if a WebID is linked",
+      "@type": "Override",
+      "overrideInstance": { "@id": "urn:solid-server:default:WebIdStore" },
+      "overrideParameters": {
+        "@type": "GroupWebIdStore",
+        "baseUrl": { "@id": "urn:solid-server:default:variable:baseUrl" },
+        "storage": { "@id": "urn:solid-server:default:AccountStorage" }
+      }
+    },
+    {
+      "comment": "Use our new class to validate group permissions",
+      "@type": "Override",
+      "overrideInstance": { "@id": "urn:solid-server:default:AgentGroupAccessChecker" },
+      "overrideParameters": {
+        "@type": "GroupWebIdAccessChecker"
+      }
+    },
+    {
+      "comment": "Use our new consent page",
+      "@type": "Override",
+      "overrideInstance": { "@id": "urn:solid-server:default:OidcConsentHtml" },
+      "overrideParameters": {
+        "@type": "HtmlViewEntry",
+        "filePath": "templates/consent-group.html.ejs"
+      }
+    }
+  ]
+}
